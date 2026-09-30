@@ -1,0 +1,312 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MHplays web</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #080711;
+            --card-bg: rgba(18, 16, 38, 0.7);
+            --primary-neon: #00f0ff;
+            --secondary-neon: #7000ff;
+            --accent-pink: #ff007f;
+            --text-color: #ffffff;
+            --text-dim: #a0a5c0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Neon Background Elements */
+        .glow-bg {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            opacity: 0.5;
+            animation: pulseGlow 8s infinite alternate ease-in-out;
+        }
+
+        .glow-1 {
+            width: 350px;
+            height: 350px;
+            background: var(--secondary-neon);
+            top: -50px;
+            right: -50px;
+        }
+
+        .glow-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-neon);
+            bottom: -50px;
+            left: -50px;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.4; }
+            100% { transform: scale(1.2) translate(20px, -20px); opacity: 0.7; }
+        }
+
+        /* Container Card */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 500px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8),
+                        inset 0 0 15px rgba(0, 240, 255, 0.1);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        /* Brand Header */
+        .brand-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-neon) 50%, var(--secondary-neon) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+            margin-bottom: 8px;
+        }
+
+        .brand-subtitle {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 35px;
+        }
+
+        /* Main Menu Buttons */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .btn-neon {
+            position: relative;
+            width: 100%;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(112, 0, 255, 0.2), rgba(0, 240, 255, 0.1));
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-neon i {
+            font-size: 1.2rem;
+            color: var(--primary-neon);
+            transition: transform 0.3s ease;
+        }
+
+        .btn-neon:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5),
+                        inset 0 0 10px rgba(0, 240, 255, 0.3);
+            background: linear-gradient(135deg, rgba(112, 0, 255, 0.4), rgba(0, 240, 255, 0.2));
+        }
+
+        .btn-neon:hover i {
+            transform: translateX(-5px);
+        }
+
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .btn-disabled:hover {
+            transform: none;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .btn-disabled:hover i {
+            transform: none;
+        }
+
+        /* Dark Maze Sub-Menu */
+        .sub-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.3s ease;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 0;
+            padding-right: 10px;
+        }
+
+        .sub-menu.open {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 12px;
+            margin-bottom: 10px;
+        }
+
+        .btn-sub {
+            padding: 14px 18px;
+            font-size: 0.95rem;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 12px;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .btn-sub:hover {
+            background: rgba(0, 240, 255, 0.2);
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            color: var(--primary-neon);
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: var(--text-dim);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 35px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+        }
+
+        .footer span {
+            color: var(--primary-neon);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Neon Backgrounds -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <h1 class="brand-title">MHplays web</h1>
+        <p class="brand-subtitle">بوابتك الخاصة لتحميل الألعاب الحصرية</p>
+
+        <!-- Menu Section -->
+        <div class="menu-list">
+            
+            <!-- Option 1: Download The Dark Maze -->
+            <div>
+                <button class="btn-neon" id="toggleDarkMazeBtn" onclick="toggleSubMenu()">
+                    <span><i class="fa-solid fa-gamepad" style="margin-left: 10px;"></i> Download The Dark Maze</span>
+                    <i class="fa-solid fa-chevron-down" id="arrowIcon"></i>
+                </button>
+                
+                <!-- Sub Menu for Dark Maze -->
+                <div class="sub-menu" id="darkMazeSubMenu">
+                    <a href="The_Dark_Maze_20226340.apk" class="btn-sub" download>
+                        <span><i class="fa-solid fa-download" style="margin-left: 8px;"></i> Download The Dark Maze 1.0</span>
+                        <span class="badge">v1.0</span>
+                    </a>
+                    <a href="The_Dark_Maze_20229763.apk" class="btn-sub" download>
+                        <span><i class="fa-solid fa-download" style="margin-left: 8px;"></i> Download The Dark Maze 1.1</span>
+                        <span class="badge">v1.1</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Option 2: Coming Soon -->
+            <button class="btn-neon btn-disabled" disabled>
+                <span><i class="fa-solid fa-lock" style="margin-left: 10px;"></i> قريباً (Coming Soon)</span>
+                <span class="badge">قريباً</span>
+            </button>
+
+            <!-- Option 3: Coming Soon -->
+            <button class="btn-neon btn-disabled" disabled>
+                <span><i class="fa-solid fa-lock" style="margin-left: 10px;"></i> قريباً (Coming Soon)</span>
+                <span class="badge">قريباً</span>
+            </button>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            جميع الحقوق محفوظة &copy; <span>MHplays web</span>
+        </div>
+    </div>
+
+    <!-- Interactive Script -->
+    <script>
+        function toggleSubMenu() {
+            const subMenu = document.getElementById('darkMazeSubMenu');
+            const arrowIcon = document.getElementById('arrowIcon');
+            
+            subMenu.classList.toggle('open');
+            
+            if (subMenu.classList.contains('open')) {
+                arrowIcon.style.transform = 'rotate(180deg)';
+                arrowIcon.style.color = '#ff007f';
+            } else {
+                arrowIcon.style.transform = 'rotate(0deg)';
+                arrowIcon.style.color = '#00f0ff';
+            }
+        }
+    </script>
+</body>
+</html>
